@@ -113,9 +113,44 @@ if ! command -v aws &> /dev/null; then
     curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
     sudo installer -pkg AWSCLIV2.pkg -target /
     rm AWSCLIV2.pkg
+    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl"
     
     # 설치 확인
     aws --version
 else
     echo "AWS CLI가 이미 설치되어 있습니다."
 fi
+
+# Docker 설치 (Homebrew 사용)
+if ! command -v docker &> /dev/null; then
+    echo "Docker 설치 중..."
+    brew install --cask docker
+    
+    # Docker 실행
+    echo "Docker 앱을 실행합니다. 시스템 비밀번호를 요청할 수 있습니다."
+    open -a Docker
+    
+    # Docker CLI 명령어가 작동하기까지 잠시 대기
+    echo "Docker 엔진이 시작될 때까지 기다리는 중..."
+    while ! docker info &>/dev/null; do
+        echo "Docker 엔진 시작 대기 중..."
+        sleep 5
+    done
+    
+    echo "Docker가 성공적으로 설치되고 실행되었습니다."
+else
+    echo "Docker가 이미 설치되어 있습니다."
+fi
+
+# Docker Compose 플러그인 확인 (Docker Desktop에 포함되어 있지만 추가 확인)
+if ! docker compose version &> /dev/null; then
+    echo "Docker Compose 플러그인 설치 중..."
+    brew install docker-compose
+else
+    echo "Docker Compose 플러그인이 이미 설치되어 있습니다."
+fi
+
+# Docker 기본 설정
+echo "Docker 기본 설정 중..."
+# 컨테이너 자동 정리 설정 (선택 사항)
+docker system prune -f
