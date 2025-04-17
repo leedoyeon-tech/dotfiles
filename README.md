@@ -6,3 +6,5 @@ git
 aws cli
 
 zsh 테마
+
+docker 설치

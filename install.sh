@@ -121,6 +121,9 @@ else
     echo "AWS CLI가 이미 설치되어 있습니다."
 fi
 
+# helm 설치
+brew install helm
+
 # Docker 설치 (Homebrew 사용)
 if ! command -v docker &> /dev/null; then
     echo "Docker 설치 중..."
@@ -149,8 +152,3 @@ if ! docker compose version &> /dev/null; then
 else
     echo "Docker Compose 플러그인이 이미 설치되어 있습니다."
 fi
-
-# Docker 기본 설정
-echo "Docker 기본 설정 중..."
-# 컨테이너 자동 정리 설정 (선택 사항)
-docker system prune -f
