@@ -5,6 +5,8 @@ git
 
 aws cli
 
+k9s
+
 zsh 테마
 
 docker 설치

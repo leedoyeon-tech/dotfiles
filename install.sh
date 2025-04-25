@@ -124,6 +124,8 @@ fi
 # helm 설치
 brew install helm
 
+brew install k9s
+
 # Docker 설치 (Homebrew 사용)
 if ! command -v docker &> /dev/null; then
     echo "Docker 설치 중..."
